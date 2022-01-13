@@ -1,0 +1,37 @@
+.button {
+  background-color: rgb(28, 121, 214);
+  color: #fff;
+  border: 1px solid transparent;
+  border-radius: 2px;
+  height: 32px;
+  padding: 4px 15px;
+  user-select: none;
+  text-shadow: 0 -1px 0 rgb(0 0 0 / 12%);
+  box-shadow: 0 2px #0000000b;
+  transition: background-color 0.5s;
+}
+
+.button:hover {
+  background-color: rgb(88, 136, 184);
+}
+
+.button:disabled {
+  opacity: 0.5;
+}
+
+.button:hover:disabled {
+  background-color: rgb(28, 121, 214);
+}
+
+.main {
+  min-height: 100vh;
+  padding: 2rem 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.flexCenter {
+  justify-content: center;
+  align-items: center;
+}

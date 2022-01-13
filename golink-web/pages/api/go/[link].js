@@ -5,14 +5,14 @@ import { getApp } from '../../../services/firebase_admin';
 const db = getFirestore(getApp());
 
 export default async function handler(req, res) {
-  const path = req.query.path;
-  const ref = db.collection('links').doc(path);
+  const link = req.query.link;
+  const ref = db.collection('links').doc(link);
   const doc = await ref.get();
   if (!doc.exists) {
-    console.log('No such doc:', path);
-    res.redirect('/error');
+    console.log('No such doc:', link);
+    res.redirect(`/error?link=${link}`);
   } else {
-    console.log('find redirect path:', doc.data());
+    console.log('find redirect url:', doc.data());
     res.redirect(doc.data().redirect);
   }
 }
