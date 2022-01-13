@@ -13,6 +13,10 @@ import { useRouter } from 'next/router';
 const auth = getAuth(getApp());
 const db = getFirestore(getApp());
 
+function parseOwners(owners) {
+  return owners.split(',').filter((item) => !!item);
+}
+
 function TextInput({ label, prefix, name, value, onChange }) {
   return (
     <label className={styles.label}>
@@ -58,19 +62,23 @@ export default function Home() {
   const [user, setUser] = useState(auth.currentUser);
   const [link, setLink] = useState('');
   const [redirect, setRedirect] = useState('');
+  const [owners, setOwners] = useState(auth.currentUser?.email);
   const [submittedLink, setSubmittedLink] = useState('');
   const [error, setError] = useState(undefined);
   const router = useRouter();
 
   useEffect(() => {
     if (!router.isReady) return;
-    setLink(router.query.link ?? '');
+    if (router.query.link) {
+      setLink(router.query.link);
+    }
   }, [router.isReady, router.query]);
 
   useEffect(() => {
     auth.onAuthStateChanged(() => {
       setIsAuthReady(true);
       setUser(auth.currentUser);
+      setOwners(auth.currentUser?.email);
     });
   }, []);
 
@@ -81,18 +89,20 @@ export default function Home() {
     }
     setDoc(doc(db, 'links', link), {
       redirect,
+      owners: parseOwners(owners),
     })
       .then(() => {
         setSubmittedLink(link);
-        setLink('');
-        setRedirect('');
         setError(undefined);
       })
       .catch((err) => {
         setSubmittedLink('');
+        setError(err);
+      })
+      .finally(() => {
         setLink('');
         setRedirect('');
-        setError(err);
+        setOwners('');
       });
   };
 
@@ -142,6 +152,14 @@ export default function Home() {
                 value={redirect}
                 onChange={(evt) => {
                   setRedirect(evt.target.value);
+                }}></TextInput>
+              <TextInput
+                label='Owners'
+                prefix=''
+                name='owners'
+                value={owners}
+                onChange={(evt) => {
+                  setOwners(evt.target.value);
                 }}></TextInput>
               <div>
                 <input
