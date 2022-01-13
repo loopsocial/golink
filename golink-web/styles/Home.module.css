@@ -15,6 +15,27 @@
   overflow: hidden;
 }
 
+.content {
+  display: flex;
+}
+
+.extensionContainer,
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+}
+
+.extensionContainer {
+  border-left: 1px solid #aaa;
+}
+
+.downloadBtn {
+  margin-top: 10px;
+}
+
 .label {
   display: block;
   margin-bottom: 10px;
@@ -43,4 +64,14 @@
 
 .statusTextFailure {
   color: rgb(133, 2, 2);
+}
+
+.footer {
+  margin-top: 100px;
+  text-align: center;
+  color: #555;
+}
+
+.reportLink {
+  color: rgb(29, 138, 246);
 }

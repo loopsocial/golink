@@ -2,6 +2,7 @@ import Head from 'next/head';
 import Image from 'next/image';
 import styles from '../styles/Home.module.css';
 import sharedStyles from '../styles/shared.module.css';
+import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { getApp } from '../services/firebase_web';
 import { getAuth } from 'firebase/auth';
@@ -94,42 +95,68 @@ export default function Home() {
         <div className={styles.banner}>
           <Image src='/banner.jpg' width={2048} height={504}></Image>
         </div>
-        <h2 className={styles.title}>Create a go link</h2>
-        <form className={styles.form} onSubmit={submitForm}>
-          <TextInput
-            label='Go link name'
-            prefix='go/'
-            name='link'
-            value={link}
-            onChange={(evt) => {
-              setLink(evt.target.value);
-            }}></TextInput>
-          <TextInput
-            label='Target URL'
-            prefix=''
-            name='redirect'
-            value={redirect}
-            onChange={(evt) => {
-              setRedirect(evt.target.value);
-            }}></TextInput>
-          <div>
-            <input
-              disabled={!link || !redirect}
-              className={sharedStyles.button}
-              type='submit'
-              value='Submit'></input>
-            {status ? (
-              <span
-                className={`${styles.statusText} ${
-                  status.isSuccessful
-                    ? styles.statusTextSuccess
-                    : styles.statusTextFailure
-                }`}>
-                {status.text}
-              </span>
-            ) : null}
+        <div className={styles.content}>
+          <div className={styles.formContainer}>
+            <h2 className={styles.title}>Create a go link</h2>
+            <form className={styles.form} onSubmit={submitForm}>
+              <TextInput
+                label='Go link name'
+                prefix='go/'
+                name='link'
+                value={link}
+                onChange={(evt) => {
+                  setLink(evt.target.value);
+                }}></TextInput>
+              <TextInput
+                label='Target URL'
+                prefix=''
+                name='redirect'
+                value={redirect}
+                onChange={(evt) => {
+                  setRedirect(evt.target.value);
+                }}></TextInput>
+              <div>
+                <input
+                  disabled={!link || !redirect}
+                  className={sharedStyles.button}
+                  type='submit'
+                  value='Submit'></input>
+                {status ? (
+                  <span
+                    className={`${styles.statusText} ${
+                      status.isSuccessful
+                        ? styles.statusTextSuccess
+                        : styles.statusTextFailure
+                    }`}>
+                    {status.text}
+                  </span>
+                ) : null}
+              </div>
+            </form>
           </div>
-        </form>
+          <div className={styles.extensionContainer}>
+            <h2>Short links FTW!</h2>
+            <p>
+              Go links is a URL shortener built for Firework internal links.
+              <br />
+              Add the Chrome extension and create your own go links today.
+            </p>
+            <Link href='https://chrome.google.com/webstore/detail/firework-go-link/jbgeelbmaadfoegefbgilghohgfnjcej'>
+              <a className={`${sharedStyles.button} ${styles.downloadBtn}`}>
+                Download Chrome Extension
+              </a>
+            </Link>
+          </div>
+        </div>
+        <div className={styles.footer}>
+          Please file{' '}
+          <a
+            className={styles.reportLink}
+            href='https://github.com/loopsocial/golink/issues/new'>
+            Github Issues
+          </a>{' '}
+          for feature requests and bug reports.
+        </div>
       </main>
     </div>
   );
