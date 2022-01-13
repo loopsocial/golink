@@ -28,12 +28,38 @@ function TextInput({ label, prefix, name, value, onChange }) {
   );
 }
 
+function GoLink({ link }) {
+  return (
+    <span className={styles.statusText}>
+      <a className={styles.link} href={`http://go/${link}`}>
+        go/{link}
+      </a>{' '}
+      is ready!
+    </span>
+  );
+}
+
+function RequestStatus({ link, error }) {
+  if (link) {
+    return <GoLink link={link}></GoLink>;
+  }
+  if (error) {
+    return (
+      <span className={`${styles.statusText} ${styles.statusTextFailure}`}>
+        {error.message}
+      </span>
+    );
+  }
+  return null;
+}
+
 export default function Home() {
   const [isAuthReady, setIsAuthReady] = useState(false);
   const [user, setUser] = useState(auth.currentUser);
   const [link, setLink] = useState('');
   const [redirect, setRedirect] = useState('');
-  const [status, setStatus] = useState(undefined);
+  const [submittedLink, setSubmittedLink] = useState('');
+  const [error, setError] = useState(undefined);
   const router = useRouter();
 
   useEffect(() => {
@@ -57,14 +83,16 @@ export default function Home() {
       redirect,
     })
       .then(() => {
-        setStatus({ text: 'Update succeeded', isSuccessful: true });
+        setSubmittedLink(link);
         setLink('');
         setRedirect('');
+        setError(undefined);
       })
       .catch((err) => {
-        setStatus({ text: err.message, isSuccessful: false });
+        setSubmittedLink('');
         setLink('');
         setRedirect('');
+        setError(err);
       });
   };
 
@@ -97,7 +125,7 @@ export default function Home() {
         </div>
         <div className={styles.content}>
           <div className={styles.formContainer}>
-            <h2 className={styles.title}>Create a go link</h2>
+            <h2>Create a go link</h2>
             <form className={styles.form} onSubmit={submitForm}>
               <TextInput
                 label='Go link name'
@@ -121,16 +149,9 @@ export default function Home() {
                   className={sharedStyles.button}
                   type='submit'
                   value='Submit'></input>
-                {status ? (
-                  <span
-                    className={`${styles.statusText} ${
-                      status.isSuccessful
-                        ? styles.statusTextSuccess
-                        : styles.statusTextFailure
-                    }`}>
-                    {status.text}
-                  </span>
-                ) : null}
+                <RequestStatus
+                  link={submittedLink}
+                  error={error}></RequestStatus>
               </div>
             </form>
           </div>
@@ -151,7 +172,7 @@ export default function Home() {
         <div className={styles.footer}>
           Please file{' '}
           <a
-            className={styles.reportLink}
+            className={styles.link}
             href='https://github.com/loopsocial/golink/issues/new'>
             Github Issues
           </a>{' '}
