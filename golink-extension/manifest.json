@@ -1,7 +1,7 @@
 {
   "name": "Firework Go Link",
-  "description": "Navigate to shortcut path with go/path",
-  "version": "1.0",
+  "description": "Navigate to internal links with go/link",
+  "version": "1.1",
   "manifest_version": 3,
   "omnibox": { "keyword": "go" },
   "permissions": ["declarativeNetRequest"],
@@ -17,5 +17,17 @@
   },
   "background": {
     "service_worker": "background.js"
+  },
+  "action": {
+    "default_icon": {
+      "16": "/images/icon16.png",
+      "32": "/images/icon32.png",
+      "96": "/images/icon96.png"
+    }
+  },
+  "icons": {
+    "16": "/images/icon16.png",
+    "32": "/images/icon32.png",
+    "96": "/images/icon96.png"
   }
 }
