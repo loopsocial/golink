@@ -3,11 +3,8 @@
   "description": "Navigate to shortcut path with go/path",
   "version": "1.0",
   "manifest_version": 3,
-  "permissions": [
-    "declarativeNetRequestWithHostAccess",
-    "declarativeNetRequestFeedback"
-  ],
-  "host_permissions": ["http://*/*"],
+  "permissions": ["declarativeNetRequest"],
+  "host_permissions": ["http://go/*"],
   "declarative_net_request": {
     "rule_resources": [
       {
