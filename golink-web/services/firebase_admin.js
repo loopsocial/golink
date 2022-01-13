@@ -2,7 +2,6 @@ import * as admin from 'firebase-admin';
 
 export function getApp() {
   if (!admin.apps.length) {
-    console.log(process.env.PRIVATE_KEY);
     return admin.initializeApp({
       credential: admin.credential.cert({
         type: 'service_account',
