@@ -3,6 +3,7 @@
   "description": "Navigate to shortcut path with go/path",
   "version": "1.0",
   "manifest_version": 3,
+  "omnibox": { "keyword": "go" },
   "permissions": ["declarativeNetRequest"],
   "host_permissions": ["http://go/*"],
   "declarative_net_request": {
@@ -13,5 +14,8 @@
         "path": "rules.json"
       }
     ]
+  },
+  "background": {
+    "service_worker": "background.js"
   }
 }
