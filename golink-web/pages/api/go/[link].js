@@ -13,6 +13,13 @@ export default async function handler(req, res) {
     res.redirect(`/error?link=${link}`);
   } else {
     console.log('find redirect url:', doc.data());
-    res.redirect(doc.data().redirect);
+    const data = doc.data();
+    await ref.set(
+      {
+        count: data.count ? data.count + 1 : 1,
+      },
+      { merge: true },
+    );
+    res.redirect(data.redirect);
   }
 }

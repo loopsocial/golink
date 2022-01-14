@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { getApp } from '../services/firebase_web';
 import { getAuth } from 'firebase/auth';
-import { getFirestore, doc, setDoc } from 'firebase/firestore';
+import { getFirestore, doc, setDoc, getDoc } from 'firebase/firestore';
 import { SignIn } from '../components/SignIn';
 import { useRouter } from 'next/router';
 
@@ -14,7 +14,10 @@ const auth = getAuth(getApp());
 const db = getFirestore(getApp());
 
 function parseOwners(owners) {
-  return owners.split(',').filter((item) => !!item);
+  return owners
+    .split(',')
+    .map((item) => item.trim())
+    .filter((item) => !!item);
 }
 
 function TextInput({ label, prefix, name, value, onChange }) {
@@ -85,28 +88,33 @@ export default function Home() {
     });
   }, []);
 
-  const submitForm = (evt) => {
+  const submitForm = async (evt) => {
     evt.preventDefault();
-    if (!redirect.startsWith('https://')) {
+    if (!redirect.startsWith('https://') && !redirect.startsWith('http://')) {
       redirect = `https://${redirect}`;
     }
-    setDoc(doc(db, 'links', link), {
-      redirect,
-      owners: parseOwners(owners),
-    })
-      .then(() => {
-        setSubmittedLink(link);
-        setError(undefined);
-      })
-      .catch((err) => {
-        setSubmittedLink('');
-        setError(err);
-      })
-      .finally(() => {
-        setLink('');
-        setRedirect('');
-        setOwners('');
+    try {
+      const docRef = doc(db, 'links', link);
+      const docSnap = await getDoc(docRef);
+      let count = 0;
+      if (docSnap.exists() && docSnap.data().count !== undefined) {
+        count = docSnap.data().count;
+      }
+      await setDoc(docRef, {
+        redirect,
+        owners: parseOwners(owners),
+        count,
       });
+      setSubmittedLink(link);
+      setError(undefined);
+    } catch (err) {
+      setSubmittedLink('');
+      setError(err);
+    } finally {
+      setLink('');
+      setRedirect('');
+      setOwners('');
+    }
   };
 
   if (!isAuthReady) {

@@ -24,18 +24,19 @@ getUrl((url) => {
       snapshot.forEach((doc) => {
         const data = doc.data();
         divs.push(
-          `<div class="row"><div class="link">go/${
-            doc.id
+          `<div class="link">go/${doc.id}</div><div class="count">${
+            data.count ? data.count : 0
           }</div><div class="owners">${
-            data.owners ? data.owners.join(',') : ''
-          }</div></div>`,
+            data.owners ? data.owners.join(', ') : ''
+          }</div>`,
         );
       });
       if (divs.length > 0) {
         divs.unshift(
-          `<div class="row row-header"><div class="link">Go link</div><div class="owners">Owners</div></div>`,
+          `<div class="link">Go link</div><div class="count">Usage</div><div class="owners">Owners</div>`,
+          `<div class="divider"></div>`,
         );
-        linksContainer.innerHTML = divs.join('');
+        linksContainer.innerHTML = `<div class="grid">${divs.join('')}</div>`;
       } else {
         linksContainer.innerHTML = 'No links found';
       }

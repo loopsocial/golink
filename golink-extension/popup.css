@@ -6,17 +6,13 @@
   font-size: 1.3rem;
   margin-bottom: 10px;
 }
-.row {
-  display: flex;
-  margin-bottom: 5px;
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 2fr;
+  row-gap: 7px;
 }
-.link {
-  flex: 1;
-}
-.owners {
-  flex: 2;
-}
-.row-header {
+.divider {
+  grid-column: 1 / -1;
   border-bottom: 1px solid #aaa;
 }
 #addLink {
