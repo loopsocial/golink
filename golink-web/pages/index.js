@@ -72,6 +72,9 @@ export default function Home() {
     if (router.query.link) {
       setLink(router.query.link);
     }
+    if (router.query.redirect) {
+      setRedirect(router.query.redirect);
+    }
   }, [router.isReady, router.query]);
 
   useEffect(() => {

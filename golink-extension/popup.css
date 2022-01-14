@@ -1,0 +1,40 @@
+.main {
+  width: 400px;
+  padding: 0 10px;
+}
+.title {
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+}
+.row {
+  display: flex;
+  margin-bottom: 5px;
+}
+.link {
+  flex: 1;
+}
+.owners {
+  flex: 2;
+}
+.row-header {
+  border-bottom: 1px solid #aaa;
+}
+#addLink {
+  margin-top: 10px;
+}
+.button {
+  background-color: rgb(28, 121, 214);
+  color: #fff;
+  border: 1px solid transparent;
+  border-radius: 2px;
+  height: 32px;
+  padding: 4px 15px;
+  user-select: none;
+  text-shadow: 0 -1px 0 rgb(0 0 0 / 12%);
+  box-shadow: 0 2px #0000000b;
+  transition: background-color 0.5s;
+}
+
+.button:hover {
+  background-color: rgb(88, 136, 184);
+}
