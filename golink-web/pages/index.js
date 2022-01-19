@@ -191,7 +191,7 @@ export default function Home() {
               <br />
               Add the Chrome extension and create your own go links today.
             </p>
-            <Link href='https://chrome.google.com/webstore/detail/firework-go-link/jbgeelbmaadfoegefbgilghohgfnjcej'>
+            <Link href='https://chrome.google.com/webstore/detail/firework-go-link/gkfplgdhimpaeoglmablmnpbbiioahci'>
               <a className={`${sharedStyles.button} ${styles.downloadBtn}`}>
                 Download Chrome Extension
               </a>
