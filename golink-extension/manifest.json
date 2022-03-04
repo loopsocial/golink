@@ -1,7 +1,7 @@
 {
   "name": "Firework Go Link",
   "description": "Navigate to internal links with go/link",
-  "version": "1.3",
+  "version": "1.30",
   "manifest_version": 3,
   "omnibox": { "keyword": "go" },
   "permissions": ["declarativeNetRequest", "tabs"],
