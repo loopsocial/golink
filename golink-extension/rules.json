@@ -12,5 +12,19 @@
       "regexFilter": "^http://go/",
       "resourceTypes": ["main_frame"]
     }
+  },
+  {
+    "id": 2,
+    "priority": 1,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "regexSubstitution": "https://fwn.atlassian.net/browse/"
+      }
+    },
+    "condition": {
+      "regexFilter": "^http://b/",
+      "resourceTypes": ["main_frame"]
+    }
   }
 ]
